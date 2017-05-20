@@ -11,7 +11,7 @@ exports.handler = function(event, context, callback) {
   var https = require('https');
   var querystring = require('querystring');
 
-  var client_email = event.key1;
+  var client_email = event.email;
   var postData = querystring.stringify({
     token: "{{YOUR_SLACK_TOKEN}}", // In your slack's administration
     email: client_email,
