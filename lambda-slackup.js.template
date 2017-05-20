@@ -7,45 +7,48 @@
 //      2- Create s3 hosted signup form
 //      3- Create AWS API gateway to call this lambda
 
-var https = require('https');
-var querystring = require('querystring');
+exports.myHandler = function(event, context, callback) {
+  var https = require('https');
+  var querystring = require('querystring');
 
-var client_email = process.argv[2];
-console.log(client_email);
-var postData = querystring.stringify({
-  token: "{{YOUR_SLACK_TOKEN}}", // In your slack's administration
-  email: client_email,
-  ultra_restricted: "1",
-  channels: "{{YOUR_CHANNEL_ID}}" // In your channel's URL
-});
-
-var options = {
-  host: '{{YOUR_SLACK_URI}}', // Ex: slash16.slack.com
-  port: 443,
-  method: 'POST',
-  path: '/api/users.admin.invite',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': postData.length
-  }
-};
-
-var req = https.request(options, function (res) {
-  var result = '';
-  res.on('data', function (chunk) {
-    result += chunk;
+  var client_email = event.key1;
+  var postData = querystring.stringify({
+    token: "{{YOUR_SLACK_TOKEN}}", // In your slack's administration
+    email: client_email,
+    ultra_restricted: "1",
+    channels: "{{YOUR_CHANNEL_ID}}" // In your channel's URL
   });
-  res.on('end', function () {
-    console.log(result);
+
+  var options = {
+    host: '{{YOUR_SLACK_URI}}', // Ex: slash16.slack.com
+    port: 443,
+    method: 'POST',
+    path: '/api/users.admin.invite',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': postData.length
+    }
+  };
+
+  var req = https.request(options, function (res) {
+    var result = '';
+    res.on('data', function (chunk) {
+      result += chunk;
+    });
+    res.on('end', function () {
+      callback(null, result);
+      console.log(result);
+    });
+    res.on('error', function (err) {
+      callback(null, err);
+      console.log(err);
+    })
   });
-  res.on('error', function (err) {
+
+  req.on('error', function (err) {
+    callback(null, err);
     console.log(err);
-  })
-});
-
-req.on('error', function (err) {
-  console.log(err);
-});
-
-req.write(postData);
-req.end();
+  });
+  req.write(postData);
+  req.end();
+}
