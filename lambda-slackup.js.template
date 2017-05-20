@@ -3,9 +3,9 @@
 // Desc : Initial NodeJS function
 
 // What's next :
-//      1- Apply this function as lambda
-//      2- Create s3 hosted signup form
-//      3- Create AWS API gateway to call this lambda
+//      1- Create s3 hosted signup form
+//      2- Create AWS API gateway to call this lambda
+//      3- Maybe add TOKEN - CHANNELS - HOST as Lamda environment variables
 
 exports.myHandler = function(event, context, callback) {
   var https = require('https');
