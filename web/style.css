@@ -1,0 +1,106 @@
+body {
+    background: url("./bg.jpg");
+    background-size: cover;
+    text-align: center;
+    color: #ffffff;
+}
+
+.g-recaptcha>div {
+      margin: 20px auto;
+}
+
+form {
+  width: 50%;
+  margin: auto;
+  background: hsla(0, 0%, 0%, 0.8);
+  padding: 30px;
+  -webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-ms-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;
+}
+form h1 {
+  font-family: Arial;
+
+}
+
+form #plus {
+  font-size: 50px;
+  margin: 0;
+}
+
+form input {
+  background: none;
+  border: 1px solid #ffffff;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  color: #ffffff;
+  padding: 5px 50px;
+  font-size: 20px;
+  text-align: center;
+}
+
+form button {
+  background: #ffffff;
+  border: none;
+  color: #000000;
+  padding: 10px 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+#resultDivContainer {
+    font-family: Arial;
+    color: #ffffff;
+}
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  display: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}

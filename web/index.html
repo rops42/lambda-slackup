@@ -1,18 +1,58 @@
-<!DOCTYPE html>
-<html>
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no" name="viewport">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+$(document).ready(function() {
+  document.getElementById("btn").disabled = true;
+});
+
+function enableBtn(){
+  document.getElementById("btn").disabled = false;
+}
+
+JSONTest = function() {
+    var client_email = document.getElementById("input").value;
+    var resultDiv = $("#resultDivContainer");
+    $.ajax({
+        url: "https://14s099ux2c.execute-api.eu-west-1.amazonaws.com/prod/slack-signer/",
+        type: "POST",
+        data: client_email,
+        dataType: "json",
+        headers: { 'Content-Type': 'application/json' },
+        crossDomain: true,
+        success: function (result) {
+            var parsed_data = JSON.parse(result);
+            switch (parsed_data.ok) {
+                case true:
+                    $(".checkmark").show();
+                    $(".slack").hide();
+                    $("button").hide();
+                    $("#input").hide();
+                    resultDiv.html("Merci pour votre inscription<br />Vous allez recevoir un email");
+                    break;
+                default:
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        }
+    });
+};
+
+</script>
 </head>
 <body>
-
-<form action="http://test.tewragrg.com" method="POST" target="_blank">
-  First name: <input type="text" name="fname"><br>
-  Last name: <input type="text" name="lname"><br>
-  <input type="submit" value="Submit">
+<form>
+<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+<img class="slack" src="./logo.png" width="150px" height="auto" />
+<p class="slack" id="plus">+</p><br />
+<img class="slack" src="./slack.svg" alt="slack" width="115px" height="auto"/ >
+<div id="resultDivContainer"></div>
+<input type="email" id="input" name="mail" placeholder="email@example.com"><br>
+<div class="g-recaptcha" data-sitekey="6LfunyIUAAAAAEIWaWrCW0Av0KMfcP2DDcqYVLIK" data-callback="enableBtn"></div>
+<button id="btn" type="button" onclick="JSONTest()">Envoyer</button>
 </form>
-
-<p>Click on the submit button, and the input will be sent to a page on the server called "/action_page.php".</p>
-
 </body>
 </html>
