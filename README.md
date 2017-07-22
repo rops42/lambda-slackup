@@ -1,4 +1,6 @@
 # **lambda-slackup**
+**:( Sad News :** This Slack functionnality is only for payed accounts like non-profit organisations... But i will keep working on it for honor.  
+
 Simple and light AWS signup form for automatic **slack** guest-users invites.  
 For **Companies** | **Associations** | **Communities** public access
 
